@@ -1,5 +1,7 @@
 using COMP2139_ICE.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace COMP2139_ICE.Controllers;
 
