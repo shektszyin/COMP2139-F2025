@@ -44,8 +44,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvamVjdC9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Project/Detail.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvamVjdC9EZXRhaWwuY3NodG1s
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Project/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvamVjdC9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Project/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvamVjdC9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Project/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvamVjdC9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Project/Index.cshtml]
