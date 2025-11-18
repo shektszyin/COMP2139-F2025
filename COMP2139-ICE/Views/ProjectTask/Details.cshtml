@@ -1,0 +1,21 @@
+@model ProjectTask
+
+<h2>Task Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h3>@Model.Title</h3>
+        <p>@Model.Description</p>
+
+        <dl class="row">
+            <dt class="col-sm-3">Task ID</dt>
+            <dd class="col-sm-9">@Model.ProjectTaskId</dd>
+
+            <dt class="col-sm-3">Project ID</dt>
+            <dd class="col-sm-9">@Model.ProjectId</dd>
+        </dl>
+
+        <a asp-action="Edit" asp-route-id="@Model.ProjectTaskId" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" asp-route-projectId="@Model.ProjectId" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

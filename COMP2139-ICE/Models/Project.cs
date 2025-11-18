@@ -72,4 +72,7 @@ public class Project
     /// </summary>
 
     public string? Status { get; set; }
+
+    public required List<ProjectTask> ProjectTasks { get; set; }
+
 }

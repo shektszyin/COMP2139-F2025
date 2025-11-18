@@ -43,11 +43,14 @@ public class ProjectController : Controller
 
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Create(Project project)
 
     {
         if (ModelState.IsValid)
         {
+            project.StartDate = DateTime.SpecifyKind(project.StartDate, DateTimeKind.Utc);
+            project.EndDate = DateTime.SpecifyKind(project.EndDate, DateTimeKind.Utc);
             _context.Projects.Add(project);
             _context.SaveChanges();
              return RedirectToAction("Index");
@@ -65,7 +68,6 @@ public class ProjectController : Controller
         return View(project);
     }
 
-    //Lab4 - Part3 - #2 
 
     [HttpPost] 
     [ValidateAntiForgeryToken] 
