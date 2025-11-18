@@ -13,9 +13,14 @@
 
 <h2>Projects</h2> 
 
+<form asp-action="Search" method="get" class="mb-3">
+    <input type="text" name="term" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search projects..." />
+</form>
+
+
 // Lab4 - Part5 - #1 
 
-            //"Create" 
+//"Create" 
 
 <a asp-action="Create" class="btn btn-primary">Create New Project</a> <!--Lab4 - Part5 - #1 --> 
 
@@ -36,8 +41,6 @@
             <th>Description</th> 
 
             <th>Actions</th>
-
-            <!-- Add other project properties as needed --> 
 
         </tr> 
 
@@ -78,8 +81,6 @@
 
                 </td> 
 
-                <!-- Render other project properties as needed --> 
-
             </tr> 
 
         } 
@@ -94,6 +95,13 @@ else
 
 { 
 
-    <p>No projects available.</p> 
+      if (ViewBag.Searched == true)
+    {
+        <p>No projects found for: <strong>@ViewBag.SearchTerm</strong></p>
+    }
+    else
+    {
+        <p>No projects available.</p>
+    }
 
 } 

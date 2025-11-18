@@ -2,7 +2,7 @@
 
 <h2>Create Task</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" asp-route-projectId="@ViewBag.ProjectId" method="post">
 
     <input type="hidden" asp-for="ProjectId" value="@ViewBag.ProjectId" />
 

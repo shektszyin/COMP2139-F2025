@@ -1,0 +1,27 @@
+<h2>Results for "@ViewBag.Term"</h2>
+
+<h3>Projects</h3>
+@if (((List<Project>)ViewBag.Projects).Any())
+{
+    foreach (var p in (List<Project>)ViewBag.Projects)
+    {
+        <p>@p.Name</p>
+    }
+}
+else
+{
+    <p>No matching projects.</p>
+}
+
+<h3>Tasks</h3>
+@if (((List<ProjectTask>)ViewBag.Tasks).Any())
+{
+    foreach (var t in (List<ProjectTask>)ViewBag.Tasks)
+    {
+        <p>@t.Title</p>
+    }
+}
+else
+{
+    <p>No matching tasks.</p>
+}

@@ -73,6 +73,6 @@ public class Project
 
     public string? Status { get; set; }
 
-    public required List<ProjectTask> ProjectTasks { get; set; }
+    public  List<ProjectTask> ProjectTasks { get; set; }
 
 }
