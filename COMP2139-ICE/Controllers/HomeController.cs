@@ -15,22 +15,20 @@ public class HomeController : Controller
         _context = context;
     }
 
-    public IActionResult Search(string term)
-    {
-        var projects = _context.Projects
-            .Where(p => p.Name.Contains(term) || p.Description.Contains(term))
-            .ToList();
+    public IActionResult Search(string type, string term)
+{
+    if (string.IsNullOrWhiteSpace(term))
+        return RedirectToAction("Index");
 
-        var tasks = _context.ProjectTasks
-            .Where(t => t.Title.Contains(term) || t.Description.Contains(term))
-            .ToList();
+    if (type == "project")
+        return RedirectToAction("Search", "Project", new { term });
 
-        ViewBag.Term = term;
-        ViewBag.Projects = projects;
-        ViewBag.Tasks = tasks;
+    if (type == "task")
+        return RedirectToAction("Index", "ProjectTask", new { projectId = 1 });
 
-        return View();
-    }
+    return RedirectToAction("Index");
+}
+
 
     public IActionResult Index()
     {
@@ -47,4 +45,10 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult NotFound(int code)
+{
+    return View("NotFound");
+}
+
 }
