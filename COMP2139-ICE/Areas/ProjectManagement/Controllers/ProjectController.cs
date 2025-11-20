@@ -1,6 +1,6 @@
-using COMP2139_ICE.Areas.ProjectManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using COMP2139_ICE.Areas.ProjectManagement.Models;
 
 namespace COMP2139_ICE.Areas.ProjectManagement.Controllers
 {
@@ -15,21 +15,21 @@ namespace COMP2139_ICE.Areas.ProjectManagement.Controllers
             _context = context;
         }
 
-        // GET: /ProjectManagement/Project
+        // GET: Index
         [HttpGet("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var projects = _context.Projects.ToList();
+            var projects = await _context.Projects.ToListAsync();
             return View(projects);
         }
 
-        // GET: /ProjectManagement/Project/Search?term=abc
+        // GET: Search
         [HttpGet("Search")]
-        public IActionResult Search(string term)
+        public async Task<IActionResult> Search(string term)
         {
-            var results = _context.Projects
+            var results = await _context.Projects
                 .Where(p => p.Name.Contains(term) || p.Description.Contains(term))
-                .ToList();
+                .ToListAsync();
 
             ViewBag.SearchTerm = term;
             ViewBag.Searched = true;
@@ -37,100 +37,86 @@ namespace COMP2139_ICE.Areas.ProjectManagement.Controllers
             return View("Index", results);
         }
 
-        // GET: /ProjectManagement/Project/Create
+        // GET: Create
         [HttpGet("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: /ProjectManagement/Project/Create
+        // POST: Create
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Project project)
+        public async Task<IActionResult> Create(Project project)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Projects.Add(project);
-                _context.SaveChanges();
+            if (!ModelState.IsValid)
+                return View(project);
 
-                return RedirectToAction("Index", new { area = "ProjectManagement" });
-            }
+            await _context.Projects.AddAsync(project);
+            await _context.SaveChangesAsync();
 
-            return View(project);
+            return RedirectToAction("Index");
         }
 
-        // GET: /ProjectManagement/Project/Edit/5
+        // GET: Edit
         [HttpGet("Edit/{id:int}")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var project = _context.Projects.FirstOrDefault(p => p.ProjectId == id);
-
-            if (project == null)
-                return NotFound();
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null) return NotFound();
 
             return View(project);
         }
 
-        // POST: /ProjectManagement/Project/Edit/5
+        // POST: Edit
         [HttpPost("Edit/{id:int}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Project project)
+        public async Task<IActionResult> Edit(int id, Project project)
         {
-            if (id != project.ProjectId)
-                return NotFound();
+            if (id != project.ProjectId) return NotFound();
+            if (!ModelState.IsValid) return View(project);
 
-            if (ModelState.IsValid)
-            {
-                _context.Projects.Update(project);
-                _context.SaveChanges();
+            _context.Projects.Update(project);
+            await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index", new { area = "ProjectManagement" });
-            }
-
-            return View(project);
+            return RedirectToAction("Index");
         }
 
-        // GET: /ProjectManagement/Project/Details/5
+        // GET: Details
         [HttpGet("Details/{id:int}")]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var project = _context.Projects
+            var project = await _context.Projects
                 .Include(p => p.ProjectTasks)
-                .FirstOrDefault(p => p.ProjectId == id);
+                .FirstOrDefaultAsync(p => p.ProjectId == id);
 
-            if (project == null)
-                return NotFound();
-
+            if (project == null) return NotFound();
             return View(project);
         }
 
-        // GET: /ProjectManagement/Project/Delete/5
+        // GET: Delete
         [HttpGet("Delete/{id:int}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var project = _context.Projects.FirstOrDefault(p => p.ProjectId == id);
-
-            if (project == null)
-                return NotFound();
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null) return NotFound();
 
             return View(project);
         }
 
-        // POST: /ProjectManagement/Project/Delete/5
+        // POST: Delete
         [HttpPost("Delete/{id:int}")]
+        [ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = _context.Projects.Find(id);
-
-            if (project == null)
-                return NotFound();
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null) return NotFound();
 
             _context.Projects.Remove(project);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", new { area = "ProjectManagement" });
+            return RedirectToAction("Index");
         }
     }
 }

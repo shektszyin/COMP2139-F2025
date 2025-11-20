@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using COMP2139_ICE.Areas.ProjectManagement.Models;
 
 [Area("ProjectManagement")]
@@ -12,43 +13,29 @@ public class ProjectTaskController : Controller
         _context = context;
     }
 
-    [HttpGet("search")]
-    public IActionResult Search(int projectId, [FromQuery] string term)
+    // GET: Index
+    [HttpGet("Index")]
+    public async Task<IActionResult> Index(int projectId)
     {
-        bool searched = true;
-
-        var results = _context.ProjectTasks
-            .Where(t => t.ProjectId == projectId &&
-                       (t.Title.Contains(term) || t.Description.Contains(term)))
-            .ToList();
-
-        ViewBag.SearchTerm = term;
-        ViewBag.Searched = searched;
-        ViewBag.ProjectId = projectId;
-
-        return View("Index", results);
-    }
-
-    [HttpGet]
-    public IActionResult Index(int projectId)
-    {
-        var tasks = _context.ProjectTasks
+        var tasks = await _context.ProjectTasks
             .Where(t => t.ProjectId == projectId)
-            .ToList();
+            .ToListAsync();
 
         ViewBag.ProjectId = projectId;
         return View(tasks);
     }
 
-    [HttpGet("{id:int:min(1)}")]
-    public IActionResult Details(int id)
+    // GET: Details
+    [HttpGet("Details/{id:int}")]
+    public async Task<IActionResult> Details(int id)
     {
-        var task = _context.ProjectTasks.FirstOrDefault(t => t.ProjectTaskId == id);
-        if (task == null)
-            return NotFound();
+        var task = await _context.ProjectTasks.FindAsync(id);
+        if (task == null) return NotFound();
+
         return View(task);
     }
 
+    // GET: Create
     [HttpGet("Create")]
     public IActionResult Create(int projectId)
     {
@@ -56,71 +43,72 @@ public class ProjectTaskController : Controller
         return View();
     }
 
-   [HttpPost("Create")]
-[ValidateAntiForgeryToken]
-public IActionResult Create(int projectId, ProjectTask task)
-{
-    task.ProjectId = projectId;
-
-    if (ModelState.IsValid)
-    {
-        _context.ProjectTasks.Add(task);
-        _context.SaveChanges();
-
-        return RedirectToAction("Details", "Project", new { id = projectId });
-    }
-
-    ViewBag.ProjectId = projectId;
-    return View(task);
-}
-
-
-    [HttpGet("edit/{id:int:min(1)}")]
-    public IActionResult Edit(int id)
-    {
-        var task = _context.ProjectTasks.Find(id);
-        if (task == null)
-            return NotFound();
-        return View(task);
-    }
-
-    [HttpPost("edit/{id:int:min(1)}")]
+    // POST: Create
+    [HttpPost("Create")]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(ProjectTask task)
+    public async Task<IActionResult> Create(int projectId, ProjectTask task)
     {
-        if (ModelState.IsValid)
+        task.ProjectId = projectId;
+
+        if (!ModelState.IsValid)
         {
-            _context.ProjectTasks.Update(task);
-            _context.SaveChanges();
-            return RedirectToAction("Details", "Project", new { id = task.ProjectId });
+            ViewBag.ProjectId = projectId;
+            return View(task);
         }
 
-        return View(task);
+        await _context.ProjectTasks.AddAsync(task);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Index", new { projectId });
     }
 
-    [HttpGet("delete/{id:int:min(1)}")]
-    public IActionResult Delete(int id)
+    // GET: Edit
+    [HttpGet("Edit/{id:int}")]
+    public async Task<IActionResult> Edit(int id)
     {
-        var task = _context.ProjectTasks.Find(id);
-        if (task == null)
-            return NotFound();
+        var task = await _context.ProjectTasks.FindAsync(id);
+        if (task == null) return NotFound();
+
         return View(task);
     }
 
-    [HttpPost("delete/{id:int:min(1)}")]
+    // POST: Edit
+    [HttpPost("Edit/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(ProjectTask task)
+    {
+        if (!ModelState.IsValid) return View(task);
+
+        _context.ProjectTasks.Update(task);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Index", new { projectId = task.ProjectId });
+    }
+
+    // GET: Delete
+    [HttpGet("Delete/{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var task = await _context.ProjectTasks.FindAsync(id);
+        if (task == null) return NotFound();
+
+        return View(task);
+    }
+
+    // POST: Delete
+    [HttpPost("Delete/{id:int}")]
     [ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
-    public IActionResult DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var task = _context.ProjectTasks.Find(id);
-        if (task == null)
-            return NotFound();
+        var task = await _context.ProjectTasks.FindAsync(id);
+        if (task == null) return NotFound();
 
         int projectId = task.ProjectId;
 
         _context.ProjectTasks.Remove(task);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
-        return RedirectToAction("Details", "Project", new { id = projectId });
+        return RedirectToAction("Index", new { projectId });
     }
 }

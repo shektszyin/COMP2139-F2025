@@ -13,4 +13,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<ProjectTask> ProjectTasks { get; set; }
 
+    public DbSet<ProjectComment> ProjectComments { get; set; }
+
+
 }
