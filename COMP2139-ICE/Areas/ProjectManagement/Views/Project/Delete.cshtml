@@ -1,0 +1,58 @@
+@model Project
+
+@{
+    ViewBag.Title = "Delete Project";
+    Layout = "_Layout";
+}
+
+<h2>Delete Project</h2>
+
+<h4>Are you sure you want to delete this project?</h4>
+<hr />
+
+<dl class="row">
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.Name) <!-- uses ProjectName.cshtml -->
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.Description)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.Description) <!-- uses ProjectDescription.cshtml -->
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.StartDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.StartDate) <!-- uses DateTime.cshtml -->
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.EndDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.EndDate) <!-- uses DateTime.cshtml -->
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.Status)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.Status)
+    </dd>
+
+</dl>
+
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.ProjectId" method="post">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ProjectId)
+
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>

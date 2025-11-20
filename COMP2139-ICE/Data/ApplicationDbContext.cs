@@ -1,4 +1,5 @@
-using COMP2139_ICE.Models;
+using COMP2139_ICE.Areas.ProjectManagement.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext

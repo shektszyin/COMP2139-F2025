@@ -1,0 +1,54 @@
+@model IEnumerable<ProjectTask>
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<h2>Tasks for Project @ViewBag.ProjectId</h2>
+
+<form asp-action="Search" method="get" style="display:inline-block; margin-bottom:10px; width:100%;">
+
+    <input type="hidden" name="projectId" value="@ViewBag.ProjectId" />
+    <input type="text" name="term" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search tasks..." />
+</form>
+
+<a asp-action="Create" asp-route-projectId="@ViewBag.ProjectId" class="btn btn-primary mb-3">Add Task</a>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@task.ProjectTaskId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@task.ProjectTaskId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@task.ProjectTaskId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    if (ViewBag.Searched == true)
+    {
+        <p>No tasks found for: <strong>@ViewBag.SearchTerm</strong></p>
+    }
+    else
+    {
+        <p>No tasks available for this project.</p>
+    }
+}
+
+<a asp-controller="Project" asp-action="Details" asp-route-id="@ViewBag.ProjectId" class="btn btn-secondary">Back to Project</a>

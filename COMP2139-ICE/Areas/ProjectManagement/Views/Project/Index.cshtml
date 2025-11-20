@@ -1,0 +1,80 @@
+@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h2>Projects</h2>
+
+<form asp-action="Search" method="get" class="mb-3">
+    <input type="text" name="term" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search projects..." />
+</form>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Create New Project</a>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.First().ProjectId)</th>
+                <th>@Html.DisplayNameFor(m => m.First().Name)</th>
+                <th>@Html.DisplayNameFor(m => m.First().Description)</th>
+                <th>@Html.DisplayNameFor(m => m.First().StartDate)</th>
+                <th>@Html.DisplayNameFor(m => m.First().EndDate)</th>
+                <th>@Html.DisplayNameFor(m => m.First().Status)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.ProjectId</td>
+
+                <td>
+                    @Html.DisplayFor(_ => project.Name)
+                    <!-- Uses ProjectName.cshtml -->
+                </td>
+
+                <td>
+                    @Html.DisplayFor(_ => project.Description)
+                    <!-- Uses ProjectDescription.cshtml -->
+                </td>
+
+                <td>
+                    @Html.DisplayFor(_ => project.StartDate)
+                    <!-- Uses DateTime.cshtml -->
+                </td>
+
+                <td>
+                    @Html.DisplayFor(_ => project.EndDate)
+                    <!-- Uses DateTime.cshtml -->
+                </td>
+
+                <td>
+                    @Html.DisplayFor(_ => project.Status)
+                </td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@project.ProjectId" class="btn btn-info btn-sm">Details</a>
+                    <a asp-area="ProjectManagement" asp-controller="ProjectTask" asp-action="Index" asp-route-projectId="@project.ProjectId" class="btn btn-secondary btn-sm">Tasks</a>
+                    <a asp-action="Edit" asp-route-id="@project.ProjectId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@project.ProjectId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    if (ViewBag.Searched == true)
+    {
+        <p>No projects found for: <strong>@ViewBag.SearchTerm</strong></p>
+    }
+    else
+    {
+        <p>No projects available.</p>
+    }
+}

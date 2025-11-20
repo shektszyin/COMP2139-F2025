@@ -21,7 +21,7 @@ namespace COMP2139_ICE.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("COMP2139_ICE.Models.Project", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.Project", b =>
                 {
                     b.Property<int>("ProjectId")
                         .ValueGeneratedOnAdd()
@@ -30,6 +30,7 @@ namespace COMP2139_ICE.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProjectId"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("EndDate")
@@ -43,6 +44,7 @@ namespace COMP2139_ICE.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("ProjectId");
@@ -50,7 +52,7 @@ namespace COMP2139_ICE.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.ProjectTask", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask", b =>
                 {
                     b.Property<int>("ProjectTaskId")
                         .ValueGeneratedOnAdd()
@@ -61,6 +63,12 @@ namespace COMP2139_ICE.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer");
@@ -76,9 +84,9 @@ namespace COMP2139_ICE.Migrations
                     b.ToTable("ProjectTasks");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.ProjectTask", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask", b =>
                 {
-                    b.HasOne("COMP2139_ICE.Models.Project", "Project")
+                    b.HasOne("COMP2139_ICE.Areas.ProjectManagement.Models.Project", "Project")
                         .WithMany("ProjectTasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -87,7 +95,7 @@ namespace COMP2139_ICE.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.Project", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.Project", b =>
                 {
                     b.Navigation("ProjectTasks");
                 });

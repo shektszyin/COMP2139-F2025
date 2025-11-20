@@ -1,0 +1,48 @@
+@model ProjectTask
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<h2>Task Details</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.Title)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.Title) <!-- Uses ProjectTaskTitle.cshtml if you created one -->
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.Description)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.Description)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.DueDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.DueDate) <!-- Uses DateTime.cshtml -->
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(m => m.IsCompleted)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(m => m.IsCompleted)
+    </dd>
+
+    <dt class="col-sm-2">
+        Project
+    </dt>
+    <dd class="col-sm-10">
+        @Model.ProjectId
+    </dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.ProjectTaskId" class="btn btn-warning">Edit</a>
+<a asp-controller="Project" asp-action="Details" asp-route-id="@Model.ProjectId" class="btn btn-secondary">Back to Project</a>
