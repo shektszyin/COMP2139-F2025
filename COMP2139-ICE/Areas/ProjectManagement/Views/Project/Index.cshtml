@@ -23,6 +23,8 @@
                 <th>@Html.DisplayNameFor(m => m.First().StartDate)</th>
                 <th>@Html.DisplayNameFor(m => m.First().EndDate)</th>
                 <th>@Html.DisplayNameFor(m => m.First().Status)</th>
+                <th>Summary</th>
+
                 <th>Actions</th>
             </tr>
         </thead>
@@ -55,6 +57,9 @@
                 <td>
                     @Html.DisplayFor(_ => project.Status)
                 </td>
+<td>
+    @await Component.InvokeAsync("ProjectSummary", new { projectId = project.ProjectId })
+</td>
 
                 <td>
                     <a asp-action="Details" asp-route-id="@project.ProjectId" class="btn btn-info btn-sm">Details</a>

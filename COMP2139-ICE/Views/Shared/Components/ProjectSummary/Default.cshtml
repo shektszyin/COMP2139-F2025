@@ -1,0 +1,17 @@
+@model IEnumerable<COMP2139_ICE.Areas.ProjectManagement.Models.Project>
+
+<div class="card mt-3">
+    <div class="card-header bg-primary text-white">
+        Project Summary
+    </div>
+
+    <ul class="list-group list-group-flush">
+        @foreach (var p in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                <span>@p.Name</span>
+                <span class="badge bg-secondary">@p.ProjectTasks?.Count() tasks</span>
+            </li>
+        }
+    </ul>
+</div>
