@@ -104,12 +104,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TZWFyY2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/ProjectComment/_CommentList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvamVjdENvbW1lbnQvX0NvbW1lbnRMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Shared/Components/ProjectSummary/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0NvbXBvbmVudHMvUHJvamVjdFN1bW1hcnkvRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Shared/DisplayTemplates/DateTime.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Rpc3BsYXlUZW1wbGF0ZXMvRGF0ZVRpbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Shared/DisplayTemplates/ProjectDescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Rpc3BsYXlUZW1wbGF0ZXMvUHJvamVjdERlc2NyaXB0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Shared/DisplayTemplates/ProjectName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Rpc3BsYXlUZW1wbGF0ZXMvUHJvamVjdE5hbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Shared/DisplayTemplates/ProjectTaskTitle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Rpc3BsYXlUZW1wbGF0ZXMvUHJvamVjdFRhc2tUaXRsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/shek/Sem3/COMP2139/COMP2139-ICE/COMP2139-ICE/Views/Shared/Error.cshtml]

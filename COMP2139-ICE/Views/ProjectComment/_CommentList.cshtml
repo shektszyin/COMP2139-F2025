@@ -1,0 +1,12 @@
+@model IEnumerable<COMP2139_ICE.Areas.ProjectManagement.Models.ProjectComment>
+
+
+<ul class="list-group">
+@foreach (var c in Model)
+{
+    <li class="list-group-item">
+        <strong>@c.CreatedDate.ToString("yyyy-MM-dd HH:mm"):</strong>
+        @c.Content
+    </li>
+}
+</ul>

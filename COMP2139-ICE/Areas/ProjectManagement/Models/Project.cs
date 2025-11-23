@@ -32,5 +32,7 @@ namespace COMP2139_ICE.Areas.ProjectManagement.Models
         public string Status { get; set; } = "New";
 
         public ICollection<ProjectTask>? ProjectTasks { get; set; }
+
+        public ICollection<ProjectComment> Comments { get; set; } = new List<ProjectComment>();
     }
 }
